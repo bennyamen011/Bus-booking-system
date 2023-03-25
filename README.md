@@ -1,126 +1,22 @@
 # Bus-booking-system
 Bus booking system using java 
-//BUS CLASS
-package bookingsystem;
+The given code is a simple implementation of a bus booking system. It contains three classes: "bus", "booking", and "bookdemo".
 
-public class bus {
-	private int busno;
-	private boolean ac;
-	private int capacity;
-	private String DriveName;
-	public String getDriveName() {
-		return DriveName;
-	}
-	public void setDriveName(String drive) {
-		DriveName = drive;
-	}
-	public int getBusno() {
-		return busno;
-	}
-	public void setBusno(int no) {
-		this.busno = no;
-	}
-	public boolean isAc() {
-		return ac;
-	}
-	public void setAc(boolean ac) {
-		this.ac = ac;
-	}
-	public int getCapacity() {
-		return capacity;
-	}
-	public void setCapacity(int cap) {
-		this.capacity = cap;
-	}
-	public bus(int no, boolean ac, int cap,String drive) {
-		super();
-		this.busno = no;
-		this.ac = ac;
-		this.capacity = cap ;
-		this.DriveName=drive;
-	}
-	public void displaybusinfo() {
-		System.out.println("Bus No:" + busno +  "  A/C:"  + ac + 
-				"  Capacity of the bus is:" + capacity+"  "
-						+ " Drivername :"+DriveName );
-	} }
-  //BOOKING CLASS
-  package bookingsystem;
+The "bus" class has the following instance variables:
 
-import java.util.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-public class booking {
-    String passengerName;
-    int busno;
-    Date date;
-    booking(){
-        Scanner scanner=new Scanner(System.in);
-        System.out.println("Enter the Name:");
-        passengerName=scanner.next();
-        System.out.println("Enter the BUS_NO:");
-        busno=scanner.nextInt();
-        System.out.println("Enter the DATE dd-MM-yyyy:");
-        String dateInput=scanner.next();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            date=dateFormat.parse(dateInput);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } 
-    }
-    public boolean isAvailable(ArrayList<booking> bookings, ArrayList<bus> buses) {
-        int capacity = 0;
+busno: an integer representing the bus number
+ac: a boolean value indicating whether the bus is air-conditioned or not
+capacity: an integer representing the capacity of the bus
+DriveName: a string representing the name of the driver of the bus
+The class has getter and setter methods for each of these instance variables, and a constructor that initializes the instance variables.
 
-        for (bus bus : buses) {
-            if (bus.getBusno() == busno) {
-                capacity = bus.getCapacity();
-            }
-        }
+The "booking" class has the following instance variables:
 
-        int booked = 0;
-        for (booking b : bookings) {
-            if (b.busno == busno && b.date.equals(date)) {
-                booked++;
-            }
-        }
+passengerName: a string representing the name of the passenger
+busno: an integer representing the bus number
+date: a Date object representing the date of the booking
+The class has a constructor that prompts the user to enter the passenger name, bus number, and date of the booking. It also has a method called "isAvailable" that takes in two array lists: one containing all the bookings and another containing all the buses. It checks if the given bus is available on the given date by counting the number of bookings already made for the bus on the given date and comparing it to the capacity of the bus. If the number of bookings is less than the capacity, the method returns true, indicating that the bus is available. Otherwise, it returns false.
 
-        return booked < capacity ? true : false;
-    }
-}
-//main class
- package bookingsystem;
+The "bookdemo" class is the main class that uses the "bus" and "booking" classes to create a simple bus booking system. It creates an ArrayList of buses, displays information about each bus, and prompts the user to enter a choice. If the user chooses to book a bus, it creates a new booking object, checks if the bus is available on the given date, and adds the booking to the ArrayList of bookings if it is available. If the booking is successful, it prints a confirmation message; otherwise, it prints an error message.
 
-import java.util.ArrayList;
-import java.util.Scanner;
-public class bookdemo {
-	public static void main(String[] args) {
-		ArrayList<bus> buses=new ArrayList<bus>();
-		ArrayList<booking> bookings=new ArrayList<booking>();
-	buses.add(new bus(101,true,3,"ram"));
-	buses.add(new bus(102,true,30,"san"));
-	buses.add(new bus(103,true,35,"ben"));
-	buses.add(new bus(104,false,30,"hri"));
-	buses.add(new bus(105,false,25,"gow"));
-	buses.add(new bus(106,false,40,"nav"));
-		int userops=1;
-		Scanner scanner=new Scanner(System.in);
-		for(bus b:buses) {
-			b.displaybusinfo();
-		}    	 
-		while(userops==1) {
-		System.out.println("Enter 1 to Booking or  2 to exit ");
-		userops=scanner.nextInt(); 
-		if (userops==1) {
-		booking	Booking=new booking();
-		if(Booking.isAvailable(bookings,buses)) {
-			bookings.add(Booking);
-			System.out.println("Your booking successfully confirmed");
-		}
-		else {
-			System.out.println("Sorry...Your booking is fail.please try Another Bus or Date ");
-		}
-		}
-		}
-	}
-}
+Overall, the given code is a simple implementation of a bus booking system that allows users to book a bus based on its availability on a given date.
